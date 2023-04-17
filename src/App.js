@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import ReviewsList from "./components/ReviewsList";
 
 function App() {
+  const [reviews, setReviews] = useState();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header />
+      <Routes>
+        {/* <Route path="/" element={<Home />} /> */}
+        <Route
+          path="/reviews"
+          element={<ReviewsList reviews={reviews} setReviews={setReviews} />}
+        />
+        <Route
+          path="/reviews/p/:pageNum"
+          element={<ReviewsList reviews={reviews} setReviews={setReviews} />}
+        />
+      </Routes>
     </div>
   );
 }
