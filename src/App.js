@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import ReviewsList from "./components/ReviewsList";
+import AllReviews from "./components/AllReviews";
+import Home from "./components/Home";
+import { fetchReviews } from "./api";
 
 function App() {
+  const [reviews, setReviews] = useState();
+  const [totalReviews, setTotalReviews] = useState(null)
+  fetchReviews().then((data) => {
+    setTotalReviews(data[0].total_count);
+  });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="root">
+      <Header />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home reviews={reviews} setReviews={setReviews} />}
+        />
+        <Route
+          path="/reviews"
+          element={<AllReviews totalReviews={totalReviews} reviews={reviews} setReviews={setReviews} />}
+        />
+      </Routes>
     </div>
   );
 }
