@@ -4,14 +4,16 @@ import "./App.css";
 import Header from "./components/Header";
 import ReviewsList from "./components/ReviewsList";
 import AllReviews from "./components/AllReviews";
+import SingleReview from "./components/SingleReview";
 import Home from "./components/Home";
 import { fetchReviews } from "./api";
 
 function App() {
   const [reviews, setReviews] = useState();
   const [totalReviews, setTotalReviews] = useState(null)
-  fetchReviews().then((data) => {
-    setTotalReviews(data[0].total_count);
+  
+  fetchReviews().then((reviews) => {
+    setTotalReviews(reviews[0].total_count);
   });
   return (
     <div id="root">
@@ -25,6 +27,7 @@ function App() {
           path="/reviews"
           element={<AllReviews totalReviews={totalReviews} reviews={reviews} setReviews={setReviews} />}
         />
+        <Route path="/reviews/:id" element={<SingleReview/>}/>
       </Routes>
     </div>
   );
