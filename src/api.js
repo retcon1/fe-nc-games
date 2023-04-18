@@ -5,7 +5,6 @@ const gameAPI = axios.create({
 });
 
 export const fetchReviews = async (pageNum) => {
-  const response = await gameAPI.get("/reviews", {params: {p: pageNum}});
-  console.log(response.data);
+  const response = await gameAPI.get("/reviews", { params: { p: pageNum } });
   return response.data.reviews;
 };
