@@ -19,7 +19,11 @@ const ReviewCard = ({
 }) => {
   return (
     <Link to={`/reviews/${reviewId}`}>
-      <Card sx={{ maxWidth: 300, margin: "10px" }} className="review_card">
+      <Card
+        sx={{ maxWidth: 300, margin: "10px" }}
+        className="review_card"
+        elevation={4}
+      >
         <CardActionArea>
           <CardMedia
             component="img"
@@ -37,10 +41,10 @@ const ReviewCard = ({
               {title}
             </Typography>
             <Typography gutterBottom variant="h9" component="div">
-              Author: {designer}
+              By {designer}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {created_at}
+              {new Date(created_at).toLocaleString()}
             </Typography>
           </CardContent>
         </CardActionArea>
