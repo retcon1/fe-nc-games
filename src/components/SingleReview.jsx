@@ -8,6 +8,7 @@ import CommentCard from "./CommentCard";
 const SingleReview = () => {
   const [singleReview, setSingleReview] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [commentLoading, setCommentLoading] = useState("Not Clicked");
   const [comments, setComments] = useState([]);
   const { id } = useParams();
 
@@ -20,8 +21,10 @@ const SingleReview = () => {
   }, []);
 
   const handleCommentClick = () => {
+    setCommentLoading(true);
     fetchComments(id).then((data) => {
       setComments(data);
+      setCommentLoading(false);
     });
   };
 
@@ -67,27 +70,33 @@ const SingleReview = () => {
           </div>
         </div>
         <div className="">
-          <Button
-            onClick={handleCommentClick}
-            variant="text"
-            className="inset-x-0 bottom-0 text-red-700"
-          >
-            <Comment className="text-red-500 mr-1" /> View Comments (
-            {singleReview.comment_count})
-          </Button>
+          {singleReview.comment_count === 0 ? (
+            <Typography> No Comments... Yet!</Typography>
+          ) : (
+            <Button
+              onClick={handleCommentClick}
+              variant="text"
+              className="inset-x-0 bottom-0 text-red-700"
+            >
+              <Comment className="text-red-500 mr-1" /> View Comments (
+              {singleReview.comment_count})
+            </Button>
+          )}
         </div>
         <div>
-          {comments.length === 0
-            ? null
-            : comments.map((comment) => (
-                <CommentCard
-                  key={comment.comment_id}
-                  body={comment.body}
-                  votes={comment.votes}
-                  author={comment.author}
-                  created_at={new Date(comment.created_at).toLocaleString()}
-                />
-              ))}
+          {commentLoading === "Not Clicked" ? null : commentLoading === true ? (
+            <Typography>Loading Comments...</Typography>
+          ) : (
+            comments.map((comment) => (
+              <CommentCard
+                key={comment.comment_id}
+                body={comment.body}
+                votes={comment.votes}
+                author={comment.author}
+                created_at={new Date(comment.created_at).toLocaleString()}
+              />
+            ))
+          )}
         </div>
       </Paper>
     </div>
