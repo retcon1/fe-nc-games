@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchComments, fetchReviewById, updateReviewVotes } from "../api";
+import {
+  fetchComments,
+  fetchReviewById,
+  updateReviewVotes,
+} from "../utils/api";
 import { useParams } from "react-router-dom";
 import { Button, IconButton, Paper, Typography } from "@mui/material";
 import { ThumbUp, Comment, ThumbDown } from "@mui/icons-material";
@@ -26,18 +30,18 @@ const SingleReview = () => {
   //make sure buttons are disabled and look different when they are
   const handleVote = (voteNum) => {
     //checks if user has downvoted and balances out by adding 2 instead
+    console.log(addedVotes);
     if (Math.sign(addedVotes) === -1) {
       setAddedVotes(1);
       voteNum = 2;
     }
     //same as above, balances out by minusing 2 if user accidentally upvoted
-    if (addedVotes === 1) {
+    else if (addedVotes === 1) {
       setAddedVotes(-1);
       voteNum = -2;
     } else {
       setAddedVotes(voteNum);
     }
-    console.log(addedVotes);
     updateReviewVotes(id, voteNum).catch(() => {
       setVoteErr("Sorry, that didn't go through!");
       setAddedVotes(0);
@@ -104,7 +108,7 @@ const SingleReview = () => {
               {singleReview.votes + addedVotes} Votes
             </Typography>
             {voteErr ? (
-              <Typography className="mr-3 font-bold">{voteErr}</Typography>
+              <Typography className="ml-3 font-bold">{voteErr}</Typography>
             ) : null}
           </div>
         </div>

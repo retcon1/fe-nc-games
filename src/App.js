@@ -6,17 +6,16 @@ import ReviewsList from "./components/ReviewsList";
 import AllReviews from "./components/AllReviews";
 import SingleReview from "./components/SingleReview";
 import Home from "./components/Home";
-import { fetchReviews } from "./api";
+import { fetchReviews } from "./utils/api";
 
 function App() {
   const [reviews, setReviews] = useState();
-  const [totalReviews, setTotalReviews] = useState(null)
-  
+  const [totalReviews, setTotalReviews] = useState(null);
+
   fetchReviews().then((reviews) => {
     setTotalReviews(reviews[0].total_count);
   });
   return (
-    
     <div id="root">
       <Header />
       <Routes>
@@ -26,9 +25,15 @@ function App() {
         />
         <Route
           path="/reviews"
-          element={<AllReviews totalReviews={totalReviews} reviews={reviews} setReviews={setReviews} />}
+          element={
+            <AllReviews
+              totalReviews={totalReviews}
+              reviews={reviews}
+              setReviews={setReviews}
+            />
+          }
         />
-        <Route path="/reviews/:id" element={<SingleReview/>}/>
+        <Route path="/reviews/:id" element={<SingleReview />} />
       </Routes>
     </div>
   );
