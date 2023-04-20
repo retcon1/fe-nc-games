@@ -34,7 +34,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
     }
   };
   return (
-    <div>
+    <div className="bg-light">
       <Typography variant="h4" className="flex justify-center">
         All Reviews
       </Typography>

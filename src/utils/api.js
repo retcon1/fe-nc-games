@@ -14,13 +14,18 @@ export const fetchReviewById = async (id) => {
   return response.data.review;
 };
 
+export const updateReviewVotes = async (id, voteNum) => {
+  const vote = { inc_votes: voteNum };
+  const response = await gameAPI.patch(`/reviews/${id}`, vote);
+  return response.data.updatedReview;
+};
+
 export const fetchComments = async (id) => {
   const response = await gameAPI.get(`/reviews/${id}/comments`);
   return response.data.comments;
 };
 
-export const updateReviewVotes = async (id, voteNum) => {
-  const vote = { inc_votes: voteNum };
-  const response = await gameAPI.patch(`/reviews/${id}`, vote);
-  return response.data.updatedReview;
+export const postComment = async (id, newComment) => {
+  const response = await gameAPI.post(`/reviews/${id}/comments`, newComment);
+  return response.data.postedComment;
 };

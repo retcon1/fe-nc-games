@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center bg-light">
       <Link to={"/"}>
-        <Typography variant="h2" className="font-bold">Ben's Boardgame Bazaar</Typography>
+        <Typography variant="h2" className="font-bold">
+          Ben's Boardgame Bazaar
+        </Typography>
       </Link>
     </div>
   );
