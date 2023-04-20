@@ -16,6 +16,7 @@ function App() {
     setTotalReviews(reviews[0].total_count);
   });
   return (
+    
     <div id="root">
       <Header />
       <Routes>
