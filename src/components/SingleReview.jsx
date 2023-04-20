@@ -30,6 +30,7 @@ const SingleReview = () => {
       setAddedVotes(1);
       voteNum = 2;
     }
+    //same as above, balances out by minusing 2 if user accidentally upvoted
     if (addedVotes === 1) {
       setAddedVotes(-1);
       voteNum = -2;
