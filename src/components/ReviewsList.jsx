@@ -21,7 +21,7 @@ const ReviewsList = ({ reviews, setReviews }) => {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center bg-light">
         {reviews.map((review) => (
           <ReviewCard
             key={review.review_id}

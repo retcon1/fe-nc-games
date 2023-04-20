@@ -16,7 +16,7 @@ function App() {
     setTotalReviews(reviews[0].total_count);
   });
   return (
-    <div id="root">
+    <div id="root" className="bg-light">
       <Header />
       <Routes>
         <Route

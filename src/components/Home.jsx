@@ -12,7 +12,7 @@ const Home = ({ reviews, setReviews }) => {
     <div className="flex flex-col items-center">
       <Button
         variant="contained"
-        className="m-5 w-auto color bg-orange-400 hover:bg-orange-500"
+        className="m-5 w-auto color bg-primary hover:bg-light-accent"
         onClick={handleClick}
       >
         See All Reviews
