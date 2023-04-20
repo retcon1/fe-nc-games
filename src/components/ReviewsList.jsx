@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchReviews } from "../api";
+import { fetchReviews } from "../utils/api";
 import ReviewCard from "./ReviewCard";
 import { Button, Typography } from "@mui/material";
 import { Link, Navigate, useNavigate } from "react-router-dom";

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { fetchComments, fetchReviewById } from "../api";
+import {
+  fetchComments,
+  fetchReviewById,
+  updateReviewVotes,
+} from "../utils/api";
 import { useParams } from "react-router-dom";
 import { Button, IconButton, Paper, Typography } from "@mui/material";
 import { ThumbUp, Comment, ThumbDown } from "@mui/icons-material";
@@ -10,7 +14,39 @@ const SingleReview = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [commentLoading, setCommentLoading] = useState("Not Clicked");
   const [comments, setComments] = useState([]);
+  const [addedVotes, setAddedVotes] = useState(0);
+  const [voteErr, setVoteErr] = useState(false);
   const { id } = useParams();
+
+  const handleCommentClick = (event) => {
+    event.preventDefault();
+    setCommentLoading(true);
+    fetchComments(id).then((data) => {
+      setComments(data);
+      setCommentLoading(false);
+    });
+  };
+  //add handling for votes being decreased here and on the button
+  //make sure buttons are disabled and look different when they are
+  const handleVote = (voteNum) => {
+    //checks if user has downvoted and balances out by adding 2 instead
+    console.log(addedVotes);
+    if (Math.sign(addedVotes) === -1) {
+      setAddedVotes(1);
+      voteNum = 2;
+    }
+    //same as above, balances out by minusing 2 if user accidentally upvoted
+    else if (addedVotes === 1) {
+      setAddedVotes(-1);
+      voteNum = -2;
+    } else {
+      setAddedVotes(voteNum);
+    }
+    updateReviewVotes(id, voteNum).catch(() => {
+      setVoteErr("Sorry, that didn't go through!");
+      setAddedVotes(0);
+    });
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -19,14 +55,6 @@ const SingleReview = () => {
       setIsLoading(false);
     });
   }, []);
-
-  const handleCommentClick = () => {
-    setCommentLoading(true);
-    fetchComments(id).then((data) => {
-      setComments(data);
-      setCommentLoading(false);
-    });
-  };
 
   if (isLoading) {
     return <Typography>Getting That Review...</Typography>;
@@ -58,15 +86,30 @@ const SingleReview = () => {
         </Typography>
         <div className="flex justify-between w-full">
           <div className="flex items-center">
-            <IconButton>
-              <ThumbUp className="text-green-500 mr-2" />
+            <IconButton
+              onClick={(event) => {
+                handleVote(1);
+              }}
+              disabled={addedVotes > 0}
+              className="text-green-500 mr-1 disabled:text-gray-300"
+            >
+              <ThumbUp />
             </IconButton>
-            <IconButton>
-              <ThumbDown className="text-red-500 mr-2" />
+            <IconButton
+              onClick={(event) => {
+                handleVote(-1);
+              }}
+              disabled={Math.sign(addedVotes) === -1}
+              className="text-red-500 mr-2 disabled:text-gray-300"
+            >
+              <ThumbDown />
             </IconButton>
             <Typography className="text-gray-700" variant="p">
-              {singleReview.votes} Votes
+              {singleReview.votes + addedVotes} Votes
             </Typography>
+            {voteErr ? (
+              <Typography className="ml-3 font-bold">{voteErr}</Typography>
+            ) : null}
           </div>
         </div>
         <div className="">

@@ -2,7 +2,7 @@ import { Button, Typography } from "@mui/material";
 import ReviewsList from "./ReviewsList";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchReviews } from "../api";
+import { fetchReviews } from "../utils/api";
 
 const AllReviews = ({ reviews, setReviews, totalReviews }) => {
   const [page, setPage] = useState(1);
