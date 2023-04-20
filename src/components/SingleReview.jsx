@@ -57,6 +57,7 @@ const SingleReview = () => {
         votes: 0,
         created_at: currentTime.toISOString(),
       };
+      setUserComment("");
       setComments([instantComment, ...comments]);
       postComment(id, newComment).catch(() => {
         setComments([...comments]);
@@ -97,7 +98,6 @@ const SingleReview = () => {
   }
   return (
     <div className="flex justify-center">
-      {console.log(disableCommentButton)};
       <Paper
         className="flex flex-wrap max-w-screen-xl justify-center  bg-light"
         elevation={0}
@@ -152,20 +152,23 @@ const SingleReview = () => {
 
         <div className="view_comments">
           {singleReview.comment_count === 0 ? (
-            <div className="add_comment">
-              <Typography> No Comments... Yet!</Typography>
+            <div className="flex justify-center">
+              <Typography className="text-body-color-light my-2">
+                No Comments... Yet!
+              </Typography>
               <TextField
-                sx={{ m: 1 }}
-                id="outlined-adornment-amount"
+                className="ml-1 mb-1"
+                multiline
+                rows={4}
+                value={userComment}
                 label="Add Comment"
                 onChange={(event) => {
                   setUserComment(event.target.value);
                 }}
               />
               <Button
-                text="Submit"
                 variant="contained"
-                className="bg-light-accent disabled:text-gray-300"
+                className="bg-light-accent disabled:text-gray-300 m-2 h-12"
                 onClick={handleCommentSubmit}
                 disabled={disableCommentButton}
               >
@@ -187,19 +190,20 @@ const SingleReview = () => {
           {commentLoading === "Not Clicked" ? null : commentLoading === true ? (
             <Typography>Loading Comments...</Typography>
           ) : (
-            <div className="add_comment">
+            <div className="flex justify-center">
               <TextField
-                sx={{ m: 1 }}
-                id="outlined-adornment-amount"
+                className="ml-1"
+                multiline
+                rows={4}
+                value={userComment}
                 label="Add Comment"
                 onChange={(event) => {
                   setUserComment(event.target.value);
                 }}
               />
               <Button
-                text="Submit"
                 variant="contained"
-                className="bg-light-accent disabled:text-gray-300"
+                className="bg-light-accent disabled:text-gray-300 m-2 h-12"
                 onClick={handleCommentSubmit}
                 disabled={disableCommentButton}
               >
