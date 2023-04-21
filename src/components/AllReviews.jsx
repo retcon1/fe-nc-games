@@ -7,7 +7,6 @@ import CategoryBox from "./CategoryBox";
 import SortByBox from "./SortByBox";
 
 const AllReviews = ({ reviews, setReviews, totalReviews }) => {
-  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [totalInCat, setTotalInCat] = useState(totalReviews);
   const [searchParams, setSearchParams] = useSearchParams();

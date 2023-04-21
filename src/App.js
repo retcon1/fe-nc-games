@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
-import ReviewsList from "./components/ReviewsList";
 import AllReviews from "./components/AllReviews";
 import SingleReview from "./components/SingleReview";
 import Home from "./components/Home";
