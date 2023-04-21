@@ -5,9 +5,10 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { fetchReviews } from "../utils/api";
 import CategoryBox from "./CategoryBox";
 
-const AllReviews = ({ reviews, setReviews, totalReviews, setTotalReviews }) => {
+const AllReviews = ({ reviews, setReviews, totalReviews }) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [totalInCat, setTotalInCat] = useState(totalReviews);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageQuery = searchParams.get("p") || "1";
@@ -15,7 +16,6 @@ const AllReviews = ({ reviews, setReviews, totalReviews, setTotalReviews }) => {
     const newParams = new URLSearchParams(searchParams);
     newParams.set("p", page);
     setSearchParams(newParams);
-    console.log(pageQuery);
   };
 
   const catQuery = searchParams.get("category");
@@ -30,6 +30,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews, setTotalReviews }) => {
     setIsLoading(true);
     fetchReviews(pageQuery, catQuery).then((data) => {
       setReviews(data);
+      setTotalInCat(data[0].total_count ? data[0].total_count : data.length);
       setIsLoading(false);
     });
   }, [pageQuery, catQuery]);
@@ -66,7 +67,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews, setTotalReviews }) => {
           onClick={(event) => {
             handlePageClick(event, "next");
           }}
-          disabled={10 * +pageQuery >= totalReviews || isLoading}
+          disabled={10 * +pageQuery >= totalInCat || isLoading}
         >
           Next Page
         </Button>

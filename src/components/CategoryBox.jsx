@@ -7,7 +7,6 @@ const CategoryBox = ({setCategory}) => {
 
   useEffect(() => {
     fetchCategories().then((data) => {
-      console.log(data);
       setCategories(data);
     });
   }, []);

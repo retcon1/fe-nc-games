@@ -30,7 +30,6 @@ function App() {
               totalReviews={totalReviews}
               reviews={reviews}
               setReviews={setReviews}
-              setTotalReviews={setTotalReviews}
             />
           }
         />
