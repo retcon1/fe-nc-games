@@ -76,13 +76,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           ASC/DESC
         </Button>
       </div>
-      {isLoading ? (
-        <Typography className="font-bold">
-          Sorting Through Reviews...
-        </Typography>
-      ) : (
-        <ReviewsList reviews={reviews} setReviews={setReviews} />
-      )}
+      <ReviewsList reviews={reviews} setReviews={setReviews} />
       <div>
         <Button
           className="flex-bottom"
