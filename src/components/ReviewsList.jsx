@@ -16,7 +16,7 @@ const ReviewsList = ({ reviews, setReviews }) => {
   }, []);
 
   if (isLoading) {
-    return <Typography>Getting Those Reviews...</Typography>;
+    return <Typography className="font-bold">Getting Those Reviews...</Typography>;
   }
 
   return (

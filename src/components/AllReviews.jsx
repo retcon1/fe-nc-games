@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { fetchReviews } from "../utils/api";
 import CategoryBox from "./CategoryBox";
+import SortByBox from "./SortByBox";
 
 const AllReviews = ({ reviews, setReviews, totalReviews }) => {
   const navigate = useNavigate();
@@ -26,14 +27,28 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
     setSearchParams(newParams);
   };
 
+  const sortQuery = searchParams.get("sort_by");
+  const setSortBy = (sortBy) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("sort_by", sortBy);
+    setSearchParams(newParams);
+  };
+
+  const orderQuery = searchParams.get("order");
+  const setOrder = (order) => {
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("order", order);
+    setSearchParams(newParams);
+  };
+
   useEffect(() => {
     setIsLoading(true);
-    fetchReviews(pageQuery, catQuery).then((data) => {
+    fetchReviews(pageQuery, catQuery, sortQuery, orderQuery).then((data) => {
       setReviews(data);
       setTotalInCat(data[0].total_count ? data[0].total_count : data.length);
       setIsLoading(false);
     });
-  }, [pageQuery, catQuery]);
+  }, [pageQuery, catQuery, sortQuery, orderQuery]);
 
   const handlePageClick = (event, direction) => {
     event.preventDefault();
@@ -48,8 +63,26 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
       <Typography variant="h4" className="flex justify-center">
         All Reviews
       </Typography>
-      <CategoryBox setCategory={setCategory} />
-      <ReviewsList reviews={reviews} setReviews={setReviews} />
+      <div className="flex justify-between items-center">
+        <CategoryBox setCategory={setCategory} />
+        <SortByBox setSortBy={setSortBy} />
+        <Button
+          variant="outlined"
+          className="text-body-color-light border-light-accent mx-1"
+          onClick={() => {
+            orderQuery === "asc" ? setOrder("desc") : setOrder("asc");
+          }}
+        >
+          ASC/DESC
+        </Button>
+      </div>
+      {isLoading ? (
+        <Typography className="font-bold">
+          Sorting Through Reviews...
+        </Typography>
+      ) : (
+        <ReviewsList reviews={reviews} setReviews={setReviews} />
+      )}
       <div>
         <Button
           className="flex-bottom"
@@ -57,7 +90,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           onClick={(event) => {
             handlePageClick(event, "previous");
           }}
-          disabled={+pageQuery === 1}
+          disabled={+pageQuery === 1 || isLoading}
         >
           Previous Page
         </Button>

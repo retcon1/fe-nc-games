@@ -2,7 +2,7 @@ import { FormControl, InputLabel, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fetchCategories } from "../utils/api";
 
-const CategoryBox = ({setCategory}) => {
+const CategoryBox = ({ setCategory }) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -13,7 +13,10 @@ const CategoryBox = ({setCategory}) => {
 
   return (
     <div className="flex justify-center">
-      <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 250 }}>
+      <FormControl
+        sx={{ m: 1, minWidth: 120, maxWidth: 250 }}
+        className=" text-body-color-light border-light-accent"
+      >
         <InputLabel htmlFor="grouped-native-select">Categories</InputLabel>
         <Select
           native
@@ -25,9 +28,11 @@ const CategoryBox = ({setCategory}) => {
           }}
         >
           <option aria-label="None" value="" />
-            {categories.map((cat) => (
-              <option value={cat.slug}>{cat.slug}</option>
-            ))}
+          {categories.map((cat) => (
+            <option key={categories.indexOf(cat)} value={cat.slug}>
+              {cat.slug}
+            </option>
+          ))}
         </Select>
       </FormControl>
     </div>
