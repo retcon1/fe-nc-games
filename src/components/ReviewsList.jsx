@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchReviews } from "../utils/api";
 import ReviewCard from "./ReviewCard";
 import { Button, Typography } from "@mui/material";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useSearchParams } from "react-router-dom";
 
 const ReviewsList = ({ reviews, setReviews }) => {
   const [isLoading, setIsLoading] = useState(true);
