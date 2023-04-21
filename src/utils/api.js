@@ -46,3 +46,8 @@ export const fetchCategories = async () => {
   const response = await gameAPI.get("/categories");
   return response.data;
 };
+
+export const deleteComment = async (id) => {
+  const response = await gameAPI.delete(`/comments/${id}`);
+  return response.data;
+};

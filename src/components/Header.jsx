@@ -8,6 +8,9 @@ export default function Header() {
         <Typography variant="h2" className="font-bold">
           Ben's Boardgame Bazaar
         </Typography>
+        <Typography className="font-bold">
+          You are signed in as Guest
+        </Typography>
       </Link>
     </div>
   );
