@@ -4,8 +4,10 @@ const gameAPI = axios.create({
   baseURL: "https://nc-games-783o.onrender.com/api",
 });
 
-export const fetchReviews = async (pageNum) => {
-  const response = await gameAPI.get("/reviews", { params: { p: pageNum } });
+export const fetchReviews = async (pageQuery, catQuery) => {
+  const response = await gameAPI.get("/reviews", {
+    params: { p: pageQuery, category: catQuery },
+  });
   return response.data.reviews;
 };
 
@@ -28,4 +30,9 @@ export const fetchComments = async (id) => {
 export const postComment = async (id, newComment) => {
   const response = await gameAPI.post(`/reviews/${id}/comments`, newComment);
   return response.data.postedComment;
+};
+
+export const fetchCategories = async () => {
+  const response = await gameAPI.get("/categories");
+  return response.data;
 };
