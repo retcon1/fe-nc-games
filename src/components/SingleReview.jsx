@@ -43,12 +43,12 @@ const SingleReview = () => {
     if (userComment === "") {
       setDisableCommentButton(false);
     } else {
-      const newComment = { username: "cooljmessy", body: userComment };
+      const newComment = { username: "guest", body: userComment };
       //needed to not break the map function whilst still giving the user instant feedback
       const currentTime = new Date();
       const instantComment = {
         comment_id: 0,
-        author: "cooljmessy",
+        author: "guest",
         body: userComment,
         votes: 0,
         created_at: currentTime.toISOString(),
@@ -102,10 +102,10 @@ const SingleReview = () => {
           {singleReview.title}
         </Typography>
         <div className="flex justify-between items-center">
-          <Typography className="text-body-color-light" variant="body3">
+          <Typography className="text-body-color-light font-bold" variant="body3">
             {singleReview.designer}
           </Typography>
-          <Typography className="text-dark-accent ml-5" variant="body1">
+          <Typography className="text-light-accent ml-5" variant="body1">
             {new Date(singleReview.created_at).toLocaleString()}
           </Typography>
         </div>
@@ -114,7 +114,7 @@ const SingleReview = () => {
           alt={`Review for ${singleReview.title}`}
           className="w-auto h-auto"
         />
-        <Typography className="my-5 max-w-1024px" variant="p">
+        <Typography className="my-5 max-w-1024px text-body-color-light font-serif text-lg" variant="p">
           {singleReview.review_body}
         </Typography>
         <div className="flex justify-between w-full">
@@ -219,6 +219,7 @@ const SingleReview = () => {
               votes={comment.votes}
               author={comment.author}
               created_at={comment.created_at}
+              id={comment.comment_id}
             />
           ))}
         </div>
