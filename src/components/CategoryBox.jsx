@@ -29,7 +29,9 @@ const CategoryBox = ({ setCategory }) => {
         >
           <option aria-label="None" value="" />
           {categories.map((cat) => (
-            <option value={cat.slug}>{cat.slug}</option>
+            <option key={categories.indexOf(cat)} value={cat.slug}>
+              {cat.slug}
+            </option>
           ))}
         </Select>
       </FormControl>

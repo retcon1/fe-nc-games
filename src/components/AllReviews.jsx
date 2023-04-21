@@ -68,7 +68,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
         <SortByBox setSortBy={setSortBy} />
         <Button
           variant="outlined"
-          className="text-body-color-light border-light-accent ml-4"
+          className="text-body-color-light border-light-accent mx-1"
           onClick={() => {
             orderQuery === "asc" ? setOrder("desc") : setOrder("asc");
           }}
@@ -76,7 +76,13 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           ASC/DESC
         </Button>
       </div>
-      <ReviewsList reviews={reviews} setReviews={setReviews} />
+      {isLoading ? (
+        <Typography className="font-bold">
+          Sorting Through Reviews...
+        </Typography>
+      ) : (
+        <ReviewsList reviews={reviews} setReviews={setReviews} />
+      )}
       <div>
         <Button
           className="flex-bottom"
@@ -84,7 +90,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           onClick={(event) => {
             handlePageClick(event, "previous");
           }}
-          disabled={+pageQuery === 1}
+          disabled={+pageQuery === 1 || isLoading}
         >
           Previous Page
         </Button>
