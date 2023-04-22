@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { ThumbUp, Comment, ThumbDown } from "@mui/icons-material";
 import CommentCard from "./CommentCard";
+import Loading from "./Loading";
 
 const SingleReview = () => {
   const [singleReview, setSingleReview] = useState(null);
@@ -91,7 +92,10 @@ const SingleReview = () => {
 
   if (isLoading) {
     return (
-    <Typography>Getting That Review...</Typography>
+      <div className="flex justify-center">
+        <Typography>Getting That Review... </Typography>
+        <Loading />
+      </div>
     );
   }
   return (
@@ -104,7 +108,10 @@ const SingleReview = () => {
           {singleReview.title}
         </Typography>
         <div className="flex justify-between items-center">
-          <Typography className="text-body-color-light font-bold" variant="body3">
+          <Typography
+            className="text-body-color-light font-bold"
+            variant="body3"
+          >
             {singleReview.designer}
           </Typography>
           <Typography className="text-light-accent ml-5" variant="body1">
@@ -116,7 +123,10 @@ const SingleReview = () => {
           alt={`Review for ${singleReview.title}`}
           className="w-auto h-auto"
         />
-        <Typography className="my-5 max-w-1024px text-body-color-light font-serif text-lg" variant="p">
+        <Typography
+          className="my-5 max-w-1024px text-body-color-light font-serif text-lg"
+          variant="p"
+        >
           {singleReview.review_body}
         </Typography>
         <div className="flex justify-between w-full">

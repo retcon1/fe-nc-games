@@ -5,7 +5,6 @@ import { Typography } from "@mui/material";
 import Loading from "./Loading";
 
 const ReviewsList = ({ reviews, setReviews, isLoading, setIsLoading }) => {
-  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
