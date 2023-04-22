@@ -90,7 +90,9 @@ const SingleReview = () => {
   }, []);
 
   if (isLoading) {
-    return <Typography>Getting That Review...</Typography>;
+    return (
+    <Typography>Getting That Review...</Typography>
+    );
   }
   return (
     <div className="flex justify-center">

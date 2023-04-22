@@ -75,7 +75,12 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           ASC/DESC
         </Button>
       </div>
-      <ReviewsList reviews={reviews} setReviews={setReviews} />
+      <ReviewsList
+        reviews={reviews}
+        setReviews={setReviews}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
       <div>
         <Button
           className="flex-bottom"

@@ -8,7 +8,7 @@ import Home from "./components/Home";
 import { fetchReviews } from "./utils/api";
 
 function App() {
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(null);
 
   fetchReviews().then((reviews) => {

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { fetchReviews } from "../utils/api";
 import ReviewCard from "./ReviewCard";
 import { Typography } from "@mui/material";
+import Loading from "./Loading";
 
-const ReviewsList = ({ reviews, setReviews }) => {
-  const [isLoading, setIsLoading] = useState(true);
+const ReviewsList = ({ reviews, setReviews, isLoading, setIsLoading }) => {
+  // const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setIsLoading(true);
@@ -15,7 +16,15 @@ const ReviewsList = ({ reviews, setReviews }) => {
   }, []);
 
   if (isLoading) {
-    return <Typography className="font-bold">Getting Those Reviews...</Typography>;
+    return (
+      <div className="flex justify-center">
+        <Typography className="font-bold flex justify-center">
+          Getting Those Reviews...
+          <br /> (this may take some time...)
+        </Typography>
+        <Loading />
+      </div>
+    );
   }
 
   return (

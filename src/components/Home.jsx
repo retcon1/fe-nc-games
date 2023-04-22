@@ -1,8 +1,10 @@
 import { Button, Typography } from "@mui/material";
 import ReviewsList from "./ReviewsList";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Home = ({ reviews, setReviews }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const handleClick = (event) => {
     event.preventDefault();
@@ -20,7 +22,12 @@ const Home = ({ reviews, setReviews }) => {
       <Typography variant="h5" className="flex justify-center">
         Most Recent Reviews
       </Typography>
-      <ReviewsList reviews={reviews} setReviews={setReviews} />
+      <ReviewsList
+        reviews={reviews}
+        setReviews={setReviews}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
     </div>
   );
 };
