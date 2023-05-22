@@ -6,18 +6,32 @@ import { useState } from "react";
 const Home = ({ reviews, setReviews }) => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  const handleClick = (event) => {
+  const goToReviews = (event) => {
     event.preventDefault();
     navigate("/reviews");
+    console.log(event);
   };
+
+  const goToUsers = (event) => {
+    event.preventDefault();
+    navigate("/users");
+  };
+
   return (
     <div className="flex flex-col items-center">
       <Button
         variant="contained"
         className="m-5 w-auto color bg-primary hover:bg-light-accent"
-        onClick={handleClick}
+        onClick={goToReviews}
       >
         See All Reviews
+      </Button>
+      <Button
+        variant="contained"
+        className="m-5 w-auto color bg-primary hover:bg-light-accent"
+        onClick={goToUsers}
+      >
+        Change User
       </Button>
       <Typography variant="h5" className="flex justify-center">
         Most Recent Reviews

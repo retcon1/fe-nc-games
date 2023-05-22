@@ -51,3 +51,8 @@ export const deleteComment = async (id) => {
   const response = await gameAPI.delete(`/comments/${id}`);
   return response.data;
 };
+
+export const fetchUsers = async () => {
+  const response = await gameAPI.get("/users");
+  return response.data;
+};
