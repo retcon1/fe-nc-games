@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   fetchComments,
   fetchReviewById,
@@ -16,6 +16,7 @@ import {
 import { ThumbUp, Comment, ThumbDown } from "@mui/icons-material";
 import CommentCard from "./CommentCard";
 import Loading from "./Loading";
+import UserContext from "./UserContext";
 
 const SingleReview = () => {
   const [singleReview, setSingleReview] = useState(null);
@@ -28,6 +29,7 @@ const SingleReview = () => {
   const [voteErr, setVoteErr] = useState(false);
   const [commentErr, setCommentErr] = useState(false);
   const { id } = useParams();
+  const { currentUser } = useContext(UserContext);
 
   const handleCommentClick = (event) => {
     event.preventDefault();
@@ -44,12 +46,12 @@ const SingleReview = () => {
     if (userComment === "") {
       setDisableCommentButton(false);
     } else {
-      const newComment = { username: "guest", body: userComment };
+      const newComment = { username: currentUser.username, body: userComment };
       //needed to not break the map function whilst still giving the user instant feedback
       const currentTime = new Date();
       const instantComment = {
         comment_id: 0,
-        author: "guest",
+        author: currentUser.username,
         body: userComment,
         votes: 0,
         created_at: currentTime.toISOString(),
