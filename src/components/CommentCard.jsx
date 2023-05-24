@@ -2,13 +2,16 @@ import { IconButton, Paper, Typography } from "@mui/material";
 import { secondsToTimeString } from "../utils/secondsToTimeString";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteComment } from "../utils/api";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import UserContext from "./UserContext";
 
 const CommentCard = ({ author, body, created_at, votes, id }) => {
   const [deletedComment, setDeletedComment] = useState(null);
+  const { currentUser } = useContext(UserContext);
 
   const handleDelete = (event) => {
     event.preventDefault();
+    // checks if the id is equal to one that has just been posted, always zero until the refresh updates the database for the user
     if (id === 0) {
       const response = (
         <Paper
@@ -53,21 +56,21 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
   }
   return (
     <Paper
-      className="max-w-md my-5 mx-auto p-4 rounded-md shadow-md bg-white dark:bg-gray-800 relative"
+      className="max-w-md my-5 mx-auto p-4 rounded-md shadow-md bg-white relative"
       elevation={1}
     >
       <Typography variant="body1" className="font-bold">
+        {id}
+      </Typography>
+      <Typography variant="body1" className="font-bold">
         {author}
       </Typography>
-      {author === "guest" && (
+      {author === currentUser.username && (
         <IconButton onClick={handleDelete} className="absolute top-2 right-2">
           <DeleteIcon />
         </IconButton>
       )}
-      <Typography
-        variant="body2"
-        className="mt-2 text-gray-700 dark:text-gray-400"
-      >
+      <Typography variant="body2" className="mt-2 text-gray-700 ">
         {body}
       </Typography>
       <div className="flex justify-between items-center mt-4">
@@ -81,5 +84,6 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
     </Paper>
   );
 };
-
+//TODO add upvote button to comments
+//TODO IMPLEMENT DARK MODE ACROSS SITE dark:bg-gray-800 relative
 export default CommentCard;

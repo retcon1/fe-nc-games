@@ -31,7 +31,15 @@ const ReviewCard = ({
             image={img_url}
             alt={title}
           />
-          <CardContent>
+          <CardContent
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignContent: "center",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
             <Typography
               gutterBottom
               variant="h6"
