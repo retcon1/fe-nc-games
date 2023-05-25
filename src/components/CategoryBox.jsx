@@ -15,9 +15,11 @@ const CategoryBox = ({ setCategory }) => {
     <div className="flex justify-center">
       <FormControl
         sx={{ m: 1, minWidth: 120, maxWidth: 250 }}
-        className=" text-body-color-light border-light-accent"
+        className=" text-body-color-light border-light-accent dark:text-white"
       >
-        <InputLabel htmlFor="grouped-native-select">Categories</InputLabel>
+        <InputLabel htmlFor="grouped-native-select" className="dark:text-white">
+          Categories
+        </InputLabel>
         <Select
           native
           defaultValue=""

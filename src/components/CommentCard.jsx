@@ -77,10 +77,10 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
 
   return (
     <Paper
-      className="max-w-md my-5 mx-auto p-4 rounded-md shadow-md bg-white relative"
+      className="max-w-md my-5 mx-auto p-4 rounded-md shadow-md bg-white relative dark:bg-dark-accent"
       elevation={1}
     >
-      <Typography variant="body1" className="font-bold">
+      <Typography variant="body1" className="font-bold dark:text-gray-100">
         {author}
       </Typography>
       {author === currentUser.username && (
@@ -88,10 +88,16 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
           <DeleteIcon />
         </IconButton>
       )}
-      <Typography variant="body2" className="mt-2 text-gray-700 ">
+      <Typography
+        variant="body2"
+        className="mt-2 text-gray-700 dark:text-gray-100"
+      >
         {body}
       </Typography>
-      <Typography variant="caption" className="text-gray-500">
+      <Typography
+        variant="caption"
+        className="text-gray-500 dark:text-gray-200"
+      >
         {formattedDiff}
       </Typography>
       <div
@@ -124,6 +130,5 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
     </Paper>
   );
 };
-//TODO add upvote button to comments
 //TODO IMPLEMENT DARK MODE ACROSS SITE dark:bg-gray-800 relative
 export default CommentCard;

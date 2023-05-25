@@ -5,7 +5,6 @@ import { Typography } from "@mui/material";
 import Loading from "./Loading";
 
 const ReviewsList = ({ reviews, setReviews, isLoading, setIsLoading }) => {
-
   useEffect(() => {
     setIsLoading(true);
     fetchReviews().then((data) => {
@@ -27,24 +26,22 @@ const ReviewsList = ({ reviews, setReviews, isLoading, setIsLoading }) => {
   }
 
   return (
-    <>
-      <div className="flex flex-wrap justify-center bg-light">
-        {reviews.map((review) => (
-          <ReviewCard
-            key={review.review_id}
-            title={review.title}
-            owner={review.owner}
-            designer={review.designer}
-            img_url={review.review_img_url}
-            review_body={review.review_body}
-            created_at={review.created_at}
-            category={review.category}
-            votes={review.votes}
-            reviewId={review.review_id}
-          />
-        ))}
-      </div>
-    </>
+    <div className="flex flex-wrap justify-center bg-light dark:bg-dark">
+      {reviews.map((review) => (
+        <ReviewCard
+          key={review.review_id}
+          title={review.title}
+          owner={review.owner}
+          designer={review.designer}
+          img_url={review.review_img_url}
+          review_body={review.review_body}
+          created_at={review.created_at}
+          category={review.category}
+          votes={review.votes}
+          reviewId={review.review_id}
+        />
+      ))}
+    </div>
   );
 };
 

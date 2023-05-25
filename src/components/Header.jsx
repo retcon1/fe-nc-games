@@ -41,6 +41,7 @@ function Header() {
   };
 
   const goToUsers = (event) => {
+    handleCloseUserMenu();
     event.preventDefault();
     navigate("/users");
   };
@@ -51,7 +52,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="sticky" className="bg-primary mb-2">
+    <AppBar position="sticky" className="bg-primary mb-2 dark:bg-dark-accent">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <CasinoIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -141,7 +142,7 @@ function Header() {
               All Reviews
             </Button>
           </Box>
-          <Typography variant="p" sx={{ mr: 0.5 }}>
+          <Typography variant="p" sx={{ mr: 1 }}>
             Signed in as {currentUser.username}
           </Typography>
           <Box sx={{ flexGrow: 0 }}>

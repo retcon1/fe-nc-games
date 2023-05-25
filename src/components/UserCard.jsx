@@ -17,7 +17,7 @@ const UserCard = ({ username, avatar_url }) => {
         width: 250,
         margin: "10px",
       }}
-      className="review_card bg-light"
+      className="review_card bg-light dark:bg-dark-accent"
       elevation={4}
     >
       <CardContent
@@ -30,7 +30,7 @@ const UserCard = ({ username, avatar_url }) => {
         }}
       >
         <Avatar alt={username} src={avatar_url} />
-        <Typography key={username} className="font-bold my-2">
+        <Typography key={username} className="font-bold my-2 dark:text-white">
           {username}
         </Typography>
         <Button

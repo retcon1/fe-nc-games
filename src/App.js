@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   return (
-    <div id="root" className="bg-light">
+    <div id="root" className="bg-light dark:bg-dark h-screen">
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <Header />
         <Routes>

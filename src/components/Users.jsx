@@ -76,7 +76,7 @@ const Users = () => {
   if (isLoading) {
     return (
       <div className="flex-row">
-        <Typography className="font-bold flex justify-center">
+        <Typography className="font-bold flex justify-center dark:bg-dark">
           Getting Those Users...
           <br /> (this may take some time...)
         </Typography>
@@ -86,7 +86,7 @@ const Users = () => {
   }
 
   return (
-    <div className="flex flex-row flex-wrap justify-center">
+    <div className="flex flex-row flex-wrap justify-center bg-light dark:bg-dark">
       {users.map((user) => (
         <UserCard
           username={user.username}

@@ -7,9 +7,10 @@ import {
 } from "../utils/api";
 import { useParams } from "react-router-dom";
 import {
+  Box,
   Button,
+  Container,
   IconButton,
-  Paper,
   TextField,
   Typography,
 } from "@mui/material";
@@ -101,144 +102,147 @@ const SingleReview = () => {
     );
   }
   return (
-    <div className="flex justify-center">
-      <Paper
-        className="flex flex-wrap max-w-screen-xl justify-center  bg-light"
-        elevation={0}
-      >
-        <Typography className="mt-5 flex justify-center" variant="h4">
+    <Container className="flex flex-wrap max-w-screen-xl bg-light dark:bg-dark">
+      <Box>
+        <Typography
+          className="mt-5 flex justify-center dark:text-white"
+          variant="h4"
+        >
           {singleReview.title}
         </Typography>
-        <div className="flex justify-between items-center">
+        <div className="flex flex-row items-center justify-center my-2">
           <Typography
-            className="text-body-color-light font-bold"
+            className="text-body-color-light font-bold dark:text-white"
             variant="body3"
           >
             {singleReview.designer}
           </Typography>
-          <Typography className="text-light-accent ml-5" variant="body1">
+          <Typography
+            className="text-light-accent dark:text-dark-accent ml-2"
+            variant="body1"
+          >
             {new Date(singleReview.created_at).toLocaleString()}
           </Typography>
         </div>
         <img
           src={singleReview.review_img_url}
           alt={`Review for ${singleReview.title}`}
-          className="w-auto h-auto"
+          className="max-w-screen max-h-lg mx-auto"
         />
-        <Typography
-          className="my-5 max-w-1024px text-body-color-light font-serif text-lg"
-          variant="p"
-        >
+        <Typography className="my-5 max-w-1024px text-body-color-light dark:text-white font-serif text-lg">
           {singleReview.review_body}
         </Typography>
-        <div className="flex justify-between w-full">
-          <div className="flex items-center">
-            <IconButton
-              onClick={(event) => {
-                handleVote(1);
-              }}
-              disabled={addedVotes > 0}
-              className="text-success mr-1 disabled:text-gray-300"
-            >
-              <ThumbUp />
-            </IconButton>
-            <IconButton
-              onClick={(event) => {
-                handleVote(-1);
-              }}
-              disabled={Math.sign(addedVotes) === -1}
-              className="text-danger mr-2 disabled:text-gray-300"
-            >
-              <ThumbDown />
-            </IconButton>
-            <Typography className="text-gray-700" variant="p">
-              {singleReview.votes + addedVotes} Votes
+      </Box>
+      <div className="flex justify-between w-full">
+        <div className="flex items-center">
+          <IconButton
+            onClick={(event) => {
+              handleVote(1);
+            }}
+            disabled={addedVotes > 0}
+            className="text-success mr-1 disabled:text-gray-300"
+          >
+            <ThumbUp />
+          </IconButton>
+          <IconButton
+            onClick={(event) => {
+              handleVote(-1);
+            }}
+            disabled={Math.sign(addedVotes) === -1}
+            className="text-danger mr-2 disabled:text-gray-300"
+          >
+            <ThumbDown />
+          </IconButton>
+          <Typography
+            className="text-gray-700 dark:text-light-accent"
+            variant="p"
+          >
+            {singleReview.votes + addedVotes} Votes
+          </Typography>
+          {voteErr ? (
+            <Typography className="ml-3 font-bold">{voteErr}</Typography>
+          ) : null}
+        </div>
+      </div>
+
+      <div className="view_comments">
+        {singleReview.comment_count === 0 ? (
+          <div className="flex justify-center">
+            <Typography className="text-body-color-light my-2">
+              No Comments... Yet!
             </Typography>
-            {voteErr ? (
-              <Typography className="ml-3 font-bold">{voteErr}</Typography>
+            <TextField
+              className="ml-1 mb-1"
+              multiline
+              rows={4}
+              value={userComment}
+              label="Add Comment"
+              onChange={(event) => {
+                setUserComment(event.target.value);
+              }}
+            />
+            <Button
+              variant="contained"
+              className="bg-light-accent dark:bg-dark-accent disabled:text-gray-300 m-2 h-12"
+              onClick={handleCommentSubmit}
+              disabled={disableCommentButton}
+            >
+              Post Comment
+            </Button>
+          </div>
+        ) : (
+          <Button
+            onClick={handleCommentClick}
+            variant="text"
+            className="inset-x-0 bottom-0 text-dark-accent"
+          >
+            <Comment className="text-primary mr-1 dark:text-dark-accent" /> View
+            Comments ({singleReview.comment_count})
+          </Button>
+        )}
+      </div>
+      <div>
+        {commentLoading === "Not Clicked" ? null : commentLoading === true ? (
+          <Typography>Loading Comments...</Typography>
+        ) : (
+          <div className="flex flex-row items-center justify-center">
+            <TextField
+              className="ml-1"
+              multiline
+              rows={4}
+              value={userComment}
+              label="Add Comment"
+              onChange={(event) => {
+                setUserComment(event.target.value);
+              }}
+            />
+            <Button
+              variant="contained"
+              className="bg-light-accent disabled:text-gray-300 m-2 h-12"
+              onClick={handleCommentSubmit}
+              disabled={disableCommentButton}
+            >
+              Post Comment
+            </Button>
+            {commentErr ? (
+              <Typography className="my-3 font-bold text-warning">
+                {commentErr}
+              </Typography>
             ) : null}
           </div>
-        </div>
-
-        <div className="view_comments">
-          {singleReview.comment_count === 0 ? (
-            <div className="flex justify-center">
-              <Typography className="text-body-color-light my-2">
-                No Comments... Yet!
-              </Typography>
-              <TextField
-                className="ml-1 mb-1"
-                multiline
-                rows={4}
-                value={userComment}
-                label="Add Comment"
-                onChange={(event) => {
-                  setUserComment(event.target.value);
-                }}
-              />
-              <Button
-                variant="contained"
-                className="bg-light-accent disabled:text-gray-300 m-2 h-12"
-                onClick={handleCommentSubmit}
-                disabled={disableCommentButton}
-              >
-                Post Comment
-              </Button>
-            </div>
-          ) : (
-            <Button
-              onClick={handleCommentClick}
-              variant="text"
-              className="inset-x-0 bottom-0 text-dark-accent"
-            >
-              <Comment className="text-primary mr-1" /> View Comments (
-              {singleReview.comment_count})
-            </Button>
-          )}
-        </div>
-        <div>
-          {commentLoading === "Not Clicked" ? null : commentLoading === true ? (
-            <Typography>Loading Comments...</Typography>
-          ) : (
-            <div className="flex justify-center">
-              <TextField
-                className="ml-1"
-                multiline
-                rows={4}
-                value={userComment}
-                label="Add Comment"
-                onChange={(event) => {
-                  setUserComment(event.target.value);
-                }}
-              />
-              <Button
-                variant="contained"
-                className="bg-light-accent disabled:text-gray-300 m-2 h-12"
-                onClick={handleCommentSubmit}
-                disabled={disableCommentButton}
-              >
-                Post Comment
-              </Button>
-              {commentErr ? (
-                <Typography className="my-3 font-bold text-warning">
-                  {commentErr}
-                </Typography>
-              ) : null}
-            </div>
-          )}
-          {comments.map((comment) => (
-            <CommentCard
-              key={comment.comment_id}
-              body={comment.body}
-              votes={comment.votes}
-              author={comment.author}
-              created_at={comment.created_at}
-              id={comment.comment_id}
-            />
-          ))}
-        </div>
-      </Paper>
-    </div>
+        )}
+        {comments.map((comment) => (
+          <CommentCard
+            key={comment.comment_id}
+            body={comment.body}
+            votes={comment.votes}
+            author={comment.author}
+            created_at={comment.created_at}
+            id={comment.comment_id}
+          />
+        ))}
+      </div>
+    </Container>
   );
 };
 
