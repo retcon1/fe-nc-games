@@ -56,3 +56,9 @@ export const fetchUsers = async () => {
   const response = await gameAPI.get("/users");
   return response.data;
 };
+
+export const updateCommentVotes = async (id, voteNum) => {
+  const vote = { inc_votes: voteNum };
+  const response = await gameAPI.patch(`/comments/${id}`, vote);
+  return response.data.updatedComment;
+};

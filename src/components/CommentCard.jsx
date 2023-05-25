@@ -1,12 +1,16 @@
 import { IconButton, Paper, Typography } from "@mui/material";
 import { secondsToTimeString } from "../utils/secondsToTimeString";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deleteComment } from "../utils/api";
+import { deleteComment, updateCommentVotes } from "../utils/api";
 import { useContext, useState } from "react";
 import UserContext from "./UserContext";
+import { ThumbUp } from "@mui/icons-material";
 
 const CommentCard = ({ author, body, created_at, votes, id }) => {
   const [deletedComment, setDeletedComment] = useState(null);
+  const [addedVotes, setAddedVotes] = useState(0);
+  const [voteErr, setVoteErr] = useState(false);
+  const [color, setColor] = useState("");
   const { currentUser } = useContext(UserContext);
 
   const handleDelete = (event) => {
@@ -44,6 +48,7 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
   const pastDate = new Date(created_at);
   const timeDiff = Math.abs(currentDate.getTime() - pastDate.getTime());
   const diffSeconds = Math.ceil(timeDiff / 1000);
+
   //if the time difference is less than a minute, says Just Now
   if (timeDiff < 60000) {
     formattedDiff = "Just Now";
@@ -51,9 +56,25 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
     formattedDiff = secondsToTimeString(diffSeconds) + " ago";
   }
 
+  const handleVote = (voteNum) => {
+    if (voteNum === 1) {
+      setColor("primary");
+      setAddedVotes(voteNum);
+    } else {
+      setColor("default");
+      setAddedVotes(0);
+    }
+    updateCommentVotes(id, voteNum).catch(() => {
+      setVoteErr("Sorry, that didn't go through!");
+      setAddedVotes(0);
+      setColor("default");
+    });
+  };
+
   if (deletedComment) {
     return deletedComment;
   }
+
   return (
     <Paper
       className="max-w-md my-5 mx-auto p-4 rounded-md shadow-md bg-white relative"
@@ -70,13 +91,35 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
       <Typography variant="body2" className="mt-2 text-gray-700 ">
         {body}
       </Typography>
-      <div className="flex justify-between items-center mt-4">
-        <Typography variant="caption" className="text-gray-500">
-          {formattedDiff}
-        </Typography>
-        <Typography variant="caption" className="font-bold">
-          {votes} votes
-        </Typography>
+      <Typography variant="caption" className="text-gray-500">
+        {formattedDiff}
+      </Typography>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
+      >
+        {voteErr ? (
+          <Typography className="ml-3 font-bold">{voteErr}</Typography>
+        ) : null}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <IconButton
+            onClick={(event) => {
+              addedVotes === 0 ? handleVote(1) : handleVote(-1);
+            }}
+            color={color}
+            className="mb-2"
+          >
+            <ThumbUp />
+          </IconButton>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="caption" className="font-bold">
+              {votes + addedVotes} votes
+            </Typography>
+          </div>
+        </div>
       </div>
     </Paper>
   );
