@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import UserContext from "./UserContext";
 
 const UserCard = ({ username, avatar_url }) => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { setCurrentUser } = useContext(UserContext);
 
   const changeUser = (event, username, avatar_url) => {
     event.preventDefault();
-    const newUser = { username: username, avatar_url: avatar_url };
+    const newUser = { username, avatar_url };
     setCurrentUser(newUser);
   };
 

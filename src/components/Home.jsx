@@ -1,12 +1,10 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import ReviewsList from "./ReviewsList";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { ThemeContext } from "../App";
+import { useState } from "react";
 
 const Home = ({ reviews, setReviews }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center">

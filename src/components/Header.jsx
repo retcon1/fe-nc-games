@@ -1,29 +1,7 @@
-// import { Typography } from "@mui/material";
-// import { Link } from "react-router-dom";
-// import UserContext from "./UserContext";
-// import { useContext } from "react";
-
-// export default function Header() {
-//   const { currentUser } = useContext(UserContext);
-//   return (
-//     <div className="flex justify-center bg-light">
-//       <Link to={"/"}>
-//         <Typography variant="h2" className="font-bold">
-//           Ben's Boardgame Bazaar
-//         </Typography>
-//         <Typography className="font-bold">
-//           You are signed in as {currentUser}
-//         </Typography>
-//       </Link>
-//     </div>
-//   );
-// }
-
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { IconButton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
@@ -34,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import CasinoIcon from "@mui/icons-material/Casino";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 
 function Header() {
