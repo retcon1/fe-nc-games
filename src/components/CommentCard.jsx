@@ -60,9 +60,6 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
       elevation={1}
     >
       <Typography variant="body1" className="font-bold">
-        {id}
-      </Typography>
-      <Typography variant="body1" className="font-bold">
         {author}
       </Typography>
       {author === currentUser.username && (
