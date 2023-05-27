@@ -3,11 +3,10 @@ import { FormControl, InputLabel, Select } from "@mui/material";
 const SortByBox = ({ setSortBy }) => {
   return (
     <div className="flex justify-center">
-      <FormControl
-        sx={{ m: 1, minWidth: 120, maxWidth: 250 }}
-        className=" text-body-color-light border-light-accent"
-      >
-        <InputLabel htmlFor="grouped-native-select">Sort By</InputLabel>
+      <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 250 }}>
+        <InputLabel htmlFor="grouped-native-select" className="dark:text-white">
+          Sort By
+        </InputLabel>
         <Select
           native
           defaultValue=""

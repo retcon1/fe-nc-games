@@ -18,13 +18,12 @@ function App() {
   });
   useEffect(() => {
     fetchReviews().then((reviews) => {
-      console.log(reviews);
       setTotalReviews(reviews[0].total_count);
     });
   }, []);
 
   return (
-    <div id="root" className="bg-light">
+    <div id="root" className="bg-light dark:bg-dark h-screen">
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <Header />
         <Routes>

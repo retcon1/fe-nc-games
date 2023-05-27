@@ -58,8 +58,11 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
     }
   };
   return (
-    <div className="bg-light">
-      <Typography variant="h4" className="flex justify-center">
+    <div className="bg-light dark:bg-dark">
+      <Typography
+        variant="h4"
+        className="flex justify-center my-4 dark:text-white"
+      >
         All Reviews
       </Typography>
       <div className="flex justify-between items-center">
@@ -67,7 +70,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
         <SortByBox setSortBy={setSortBy} />
         <Button
           variant="outlined"
-          className="text-body-color-light border-light-accent mx-1"
+          className="text-body-color-light dark:text-white border-light-accent mx-1"
           onClick={() => {
             orderQuery === "asc" ? setOrder("desc") : setOrder("asc");
           }}
@@ -81,9 +84,9 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      <div>
+      <div className="flex justify-center items-end">
         <Button
-          className="flex-bottom"
+          className="dark:text-white disabled:text-gray-400"
           variant="text"
           onClick={(event) => {
             handlePageClick(event, "previous");
@@ -93,7 +96,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           Previous Page
         </Button>
         <Button
-          className="flex-bottom"
+          className="dark:text-white disabled:text-gray-400"
           variant="text"
           onClick={(event) => {
             handlePageClick(event, "next");

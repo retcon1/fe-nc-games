@@ -21,7 +21,7 @@ const ReviewCard = ({
     <Link to={`/reviews/${reviewId}`}>
       <Card
         sx={{ maxWidth: 300, margin: "10px" }}
-        className="review_card bg-light"
+        className="review_card bg-light dark:bg-dark-accent"
         elevation={4}
       >
         <CardActionArea>
@@ -44,14 +44,22 @@ const ReviewCard = ({
               gutterBottom
               variant="h6"
               component="div"
-              className="font-bold text-body-color-light"
+              className="font-bold text-body-color-light dark:text-white"
             >
               {title}
             </Typography>
-            <Typography gutterBottom variant="h9" component="div">
+            <Typography
+              gutterBottom
+              variant="h9"
+              component="div"
+              className="dark:text-white"
+            >
               By {designer}
             </Typography>
-            <Typography variant="body2" className="text-dark-accent">
+            <Typography
+              variant="body2"
+              className="text-dark-accent dark:text-gray-300"
+            >
               {new Date(created_at).toLocaleString()}
             </Typography>
           </CardContent>
