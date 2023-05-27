@@ -16,7 +16,7 @@ const ReviewsList = ({ reviews, setReviews, isLoading, setIsLoading }) => {
   if (isLoading) {
     return (
       <div className="flex justify-center">
-        <Typography className="font-bold flex justify-center">
+        <Typography className="font-bold flex justify-center dark:text-white">
           Getting Those Reviews...
           <br /> (this may take some time...)
         </Typography>

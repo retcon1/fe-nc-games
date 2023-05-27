@@ -84,9 +84,9 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
       />
-      <div>
+      <div className="flex justify-center items-end">
         <Button
-          className="flex-bottom"
+          className="dark:text-white disabled:text-gray-400"
           variant="text"
           onClick={(event) => {
             handlePageClick(event, "previous");
@@ -96,7 +96,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
           Previous Page
         </Button>
         <Button
-          className="flex-bottom"
+          className="dark:text-white disabled:text-gray-400"
           variant="text"
           onClick={(event) => {
             handlePageClick(event, "next");

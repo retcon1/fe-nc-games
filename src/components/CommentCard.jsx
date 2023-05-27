@@ -31,11 +31,10 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
     deleteComment(id).then(() => {
       const response = (
         <Paper
-          sx={{ maxWidth: 400, margin: "10px" }}
-          className="comment_card text-body-color-light ml-2"
+          className="max-w-md my-5 mx-auto p-4 rounded-md shadow-md bg-white relative dark:bg-dark-accent"
           elevation={1}
         >
-          <Typography>Comment Deleted!</Typography>
+          <Typography className="dark:text-white">Comment Deleted!</Typography>
         </Paper>
       );
       setDeletedComment(response);
@@ -90,7 +89,7 @@ const CommentCard = ({ author, body, created_at, votes, id }) => {
       )}
       <Typography
         variant="body2"
-        className="mt-2 text-gray-700 dark:text-gray-100"
+        className="mt-2 text-gray-700 dark:text-gray-100 text-lg flex flex-row break-all"
       >
         {body}
       </Typography>

@@ -18,7 +18,6 @@ function App() {
   });
   useEffect(() => {
     fetchReviews().then((reviews) => {
-      console.log(reviews);
       setTotalReviews(reviews[0].total_count);
     });
   }, []);
