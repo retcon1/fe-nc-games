@@ -9,6 +9,7 @@ const SortByBox = ({ setSortBy }) => {
         </InputLabel>
         <Select
           native
+          className="dark:text-white"
           defaultValue=""
           id="grouped-native-select"
           label="Grouping"

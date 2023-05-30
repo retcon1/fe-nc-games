@@ -8,11 +8,13 @@ import Home from "./components/Home";
 import { fetchReviews } from "./utils/api";
 import Users from "./components/Users";
 import UserContext from "./components/UserContext";
+import PostReview from "./components/PostReview";
 function App() {
   const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(null);
   const [currentUser, setCurrentUser] = useState({
     username: "guest",
+    name: "Guest",
     avatar_url:
       "https://www.croptecshow.com/wp-content/uploads/2017/04/guest-avatar-250x250px.png?x17690",
   });
@@ -43,6 +45,7 @@ function App() {
           />
           <Route path="/users" element={<Users />} />
           <Route path="/reviews/:id" element={<SingleReview />} />
+          <Route path="/post-review" element={<PostReview />} />
         </Routes>
       </UserContext.Provider>
     </div>

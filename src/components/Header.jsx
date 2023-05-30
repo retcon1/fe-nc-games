@@ -40,6 +40,11 @@ function Header() {
     navigate("/reviews");
   };
 
+  const postReview = (event) => {
+    event.preventDefault();
+    navigate("/post-review");
+  };
+
   const goToUsers = (event) => {
     handleCloseUserMenu();
     event.preventDefault();
@@ -109,10 +114,15 @@ function Header() {
                   All Reviews
                 </Typography>
               </MenuItem>
+              <MenuItem key={"postReview"} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center" onClick={postReview}>
+                  Create Review
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
-            variant="h6" // Adjust the variant to a smaller size if needed
+            variant="h6"
             noWrap
             component="a"
             href="/"
@@ -127,7 +137,7 @@ function Header() {
               textAlign: "center",
               maxWidth: "80%", // Limit the width to allow text wrapping
               whiteSpace: "normal", // Allow wrapping to multiple lines
-              lineHeight: "1", // Adjust line height if needed
+              lineHeight: "1",
             }}
             onClick={goHome}
           >
@@ -140,6 +150,13 @@ function Header() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               All Reviews
+            </Button>
+            <Button
+              key={"postReview"}
+              onClick={postReview}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Create Review
             </Button>
           </Box>
           <Typography variant="p" sx={{ mr: 1 }}>

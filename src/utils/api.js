@@ -62,3 +62,9 @@ export const updateCommentVotes = async (id, voteNum) => {
   const response = await gameAPI.patch(`/comments/${id}`, vote);
   return response.data.updatedComment;
 };
+
+export const postReview = async (review) => {
+  console.log(JSON.stringify(review));
+  const response = await gameAPI.post("/reviews", review);
+  return response.data;
+};
