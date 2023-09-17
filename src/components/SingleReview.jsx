@@ -102,7 +102,7 @@ const SingleReview = () => {
     );
   }
   return (
-    <Container className="flex flex-wrap justify-center min-h-screen">
+    <Container className="flex flex-wrap justify-center">
       <Box>
         <Typography
           className="mt-5 flex justify-center dark:text-white"

@@ -58,7 +58,7 @@ const AllReviews = ({ reviews, setReviews, totalReviews }) => {
     }
   };
   return (
-    <div className="bg-light dark:bg-dark">
+    <div>
       <Typography
         variant="h4"
         className="flex justify-center my-4 dark:text-white"
