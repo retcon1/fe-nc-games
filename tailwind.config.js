@@ -20,6 +20,7 @@ module.exports = {
         warning: "#ED8B07",
         danger: "#F44336",
       },
+      darkMode: "media",
     },
   },
   plugins: [],
