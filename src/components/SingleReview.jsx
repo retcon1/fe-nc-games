@@ -91,7 +91,7 @@ const SingleReview = () => {
       setSingleReview(data);
       setIsLoading(false);
     });
-  }, []);
+  }, [id]);
 
   if (isLoading) {
     return (
@@ -102,8 +102,7 @@ const SingleReview = () => {
     );
   }
   return (
-    <div className=" bg-light dark:bg-dark">
-    <Container className="flex flex-wrap justify-center">
+    <Container className="flex flex-wrap justify-center min-h-screen">
       <Box>
         <Typography
           className="mt-5 flex justify-center dark:text-white"
@@ -247,7 +246,6 @@ const SingleReview = () => {
         </Container>
       </Container>
     </Container>
-    </div>
   );
 };
 

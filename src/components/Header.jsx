@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -14,11 +14,19 @@ import MenuItem from "@mui/material/MenuItem";
 import CasinoIcon from "@mui/icons-material/Casino";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
+import ThemeButton from "../utils/ThemeSwitch";
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { currentUser } = React.useContext(UserContext);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { currentUser } = useContext(UserContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.className = theme;
+  }, [theme]);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -54,7 +62,7 @@ function Header() {
   return (
     <AppBar position="sticky" className="bg-primary mb-2 dark:bg-dark-accent">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar>
           <CasinoIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -112,7 +120,7 @@ function Header() {
             </Menu>
           </Box>
           <Typography
-            variant="h6" // Adjust the variant to a smaller size if needed
+            variant="h6"
             noWrap
             component="a"
             href="/"
@@ -127,7 +135,7 @@ function Header() {
               textAlign: "center",
               maxWidth: "80%", // Limit the width to allow text wrapping
               whiteSpace: "normal", // Allow wrapping to multiple lines
-              lineHeight: "1", // Adjust line height if needed
+              lineHeight: "1",
             }}
             onClick={goHome}
           >
@@ -141,6 +149,7 @@ function Header() {
             >
               All Reviews
             </Button>
+            <ThemeButton theme={theme} setTheme={setTheme} />
           </Box>
           <Typography variant="p" sx={{ mr: 1 }}>
             Signed in as {currentUser.username}
@@ -176,6 +185,9 @@ function Header() {
             >
               <MenuItem key={"changeUser"} onClick={goToUsers}>
                 <Typography textAlign="center">Change User</Typography>
+              </MenuItem>
+              <MenuItem key={"toggleTheme"} onClick={handleCloseNavMenu}>
+                <ThemeButton theme={theme} setTheme={setTheme} />
               </MenuItem>
             </Menu>
           </Box>

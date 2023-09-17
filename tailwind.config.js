@@ -2,6 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts}"],
   important: "#root",
+  darkMode: "class",
   theme: {
     extend: {
       backgroundColor: {
