@@ -27,6 +27,7 @@ const SingleReview = () => {
   const [userComment, setUserComment] = useState("");
   const [disableCommentButton, setDisableCommentButton] = useState(false);
   const [addedVotes, setAddedVotes] = useState(0);
+  const [voteBtns, setVoteBtns] = useState({ up: false, down: false });
   const [voteErr, setVoteErr] = useState(false);
   const [commentErr, setCommentErr] = useState(false);
   const { id } = useParams();
@@ -66,22 +67,44 @@ const SingleReview = () => {
     }
   };
 
-  const handleVote = (voteNum) => {
-    //checks if user has downvoted and balances out by adding 2 instead
-    if (Math.sign(addedVotes) === -1) {
-      setAddedVotes(1);
-      voteNum = 2;
+  const handleVote = (vote) => {
+    let voteChange = 0;
+
+    if (vote.type === "up") {
+      if (voteBtns.up) {
+        // Undo the upvote
+        setVoteBtns({ up: false });
+        voteChange = -1;
+      } else if (voteBtns.down) {
+        // Change from downvote to upvote
+        setVoteBtns({ up: true, down: false });
+        voteChange = 2;
+      } else {
+        // Regular upvote
+        setVoteBtns({ up: true });
+        voteChange = 1;
+      }
+    } else if (vote.type === "down") {
+      if (voteBtns.down) {
+        // Undo the downvote
+        setVoteBtns({ down: true });
+        voteChange = 1;
+      } else if (voteBtns.up) {
+        // Change from upvote to downvote
+        setVoteBtns({ down: true, up: false });
+        voteChange = -2;
+      } else {
+        // Regular downvote
+        setVoteBtns({ down: true });
+        voteChange = -1;
+      }
     }
-    //same as above, balances out by minusing 2 if user accidentally upvoted
-    else if (addedVotes === 1) {
-      setAddedVotes(-1);
-      voteNum = -2;
-    } else {
-      setAddedVotes(voteNum);
-    }
-    updateReviewVotes(id, voteNum).catch(() => {
+
+    // Update the live votes
+    setAddedVotes((prevVotes) => prevVotes + voteChange);
+
+    updateReviewVotes(id, voteChange).catch(() => {
       setVoteErr("Sorry, that didn't go through!");
-      setAddedVotes(0);
     });
   };
 
@@ -137,19 +160,19 @@ const SingleReview = () => {
         <div className="flex items-center">
           <IconButton
             onClick={(event) => {
-              handleVote(1);
+              handleVote({ type: "up", num: 1 });
             }}
-            disabled={addedVotes > 0}
-            className="text-success mr-1 disabled:text-gray-300"
+            className={`mr-1 ${voteBtns.up ? "text-gray-300" : "text-success"}`}
           >
             <ThumbUp />
           </IconButton>
           <IconButton
             onClick={(event) => {
-              handleVote(-1);
+              handleVote({ type: "down", num: -1 });
             }}
-            disabled={Math.sign(addedVotes) === -1}
-            className="text-danger mr-2 disabled:text-gray-300"
+            className={`mr-1 ${
+              voteBtns.down ? "text-gray-300" : "text-danger"
+            }`}
           >
             <ThumbDown />
           </IconButton>
