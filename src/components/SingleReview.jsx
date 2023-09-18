@@ -87,7 +87,7 @@ const SingleReview = () => {
     } else if (vote.type === "down") {
       if (voteBtns.down) {
         // Undo the downvote
-        setVoteBtns({ down: true });
+        setVoteBtns({ down: false });
         voteChange = 1;
       } else if (voteBtns.up) {
         // Change from upvote to downvote
