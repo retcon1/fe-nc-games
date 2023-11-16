@@ -8,12 +8,14 @@ import Home from "./components/Home";
 import { fetchReviews } from "./utils/api";
 import Users from "./components/Users";
 import UserContext from "./components/UserContext";
+import PostReview from "./components/PostReview";
 
 function App() {
   const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(null);
   const [currentUser, setCurrentUser] = useState({
     username: "guest",
+    name: "Guest",
     avatar_url:
       "https://img.favpng.com/12/14/4/avatar-user-medicine-surgery-patient-png-favpng-5GPmZyxNjmTZRJtRW4aT9xw0h_t.jpg",
   });
@@ -45,6 +47,7 @@ function App() {
           />
           <Route path="/users" element={<Users />} />
           <Route path="/reviews/:id" element={<SingleReview />} />
+          <Route path="/post-review" element={<PostReview />} />
         </Routes>
       </UserContext.Provider>
     </div>

@@ -125,8 +125,9 @@ const SingleReview = () => {
     );
   }
   return (
-    <Container className="flex flex-wrap justify-center">
-      <Box>
+    <div className="max-w-full bg-light dark:bg-dark">
+      <Container className="flex flex-wrap justify-center">
+        <Box>
         <Typography
           className="mt-5 flex justify-center dark:text-white"
           variant="h4"
@@ -135,11 +136,17 @@ const SingleReview = () => {
         </Typography>
         <div className="flex flex-row items-center justify-center my-3">
           <Typography
-            className="text-body-color-light font-bold dark:text-white"
-            variant="body3"
+            className="mt-5 flex justify-center dark:text-white"
+            variant="h4"
           >
-            {singleReview.designer}
+            {singleReview.title}
           </Typography>
+          <div className="flex flex-row items-center justify-center my-3">
+            <Typography
+              className="text-body-color-light font-bold dark:text-white"
+              variant="body3"
+            >
+              {singleReview.designer}
           <Typography
             className="text-light-accent dark:text-dark-accent ml-4"
             variant="body1"
@@ -193,82 +200,136 @@ const SingleReview = () => {
             <Typography className="text-body-color-light font-bold my-2 dark:text-white">
               No Comments... Yet!
             </Typography>
-            <TextField
-              className="mb-1 dark:bg-light-accent rounded-lg"
-              multiline
-              rows={4}
-              value={userComment}
-              label="Add Comment"
-              onChange={(event) => {
-                setUserComment(event.target.value);
-              }}
-            />
-            <Button
-              variant="contained"
-              className="bg-light-accent disabled:text-gray-300 m-2 h-12"
-              onClick={handleCommentSubmit}
-              disabled={disableCommentButton}
+            <Typography
+              className="text-light-accent dark:text-dark-accent ml-4"
+              variant="body1"
             >
-              Post Comment
-            </Button>
-          </Container>
-        ) : (
-          <Button
-            onClick={handleCommentClick}
-            variant="text"
-            className="inset-x-0 bottom-0 text-dark-accent"
-          >
-            <Comment className="text-primary dark:text-dark-accent my-2" /> View
-            Comments ({singleReview.comment_count})
-          </Button>
-        )}
-      </Container>
-      <Container>
-        {commentLoading === "Not Clicked" ? null : commentLoading === true ? (
-          <Typography className="dark:text-white">
-            Loading Comments...
+              {new Date(singleReview.created_at).toLocaleString()}
+            </Typography>
+          </div>
+          <img
+            src={singleReview.review_img_url}
+            alt={`Review for ${singleReview.title}`}
+            class="max-w-screen max-h-[32rem] mx-auto"
+          />
+          <Typography className="my-5 max-w-fit flex-wrap text-body-color-light dark:text-white font-serif text-lg">
+            {singleReview.review_body}
           </Typography>
-        ) : (
-          <Container className="flex flex-col max-w-lg">
-            <TextField
-              className="mb-1 dark:bg-light-accent rounded-lg"
-              multiline
-              rows={4}
-              value={userComment}
-              label="Add Comment"
-              onChange={(event) => {
-                setUserComment(event.target.value);
+        </Box>
+        <div className="flex justify-between w-full">
+          <div className="flex items-center">
+            <IconButton
+              onClick={() => {
+                handleVote(1);
               }}
-            />
-            <Button
-              variant="contained"
-              className="bg-light-accent disabled:text-gray-300 m-2 h-12 my-3"
-              onClick={handleCommentSubmit}
-              disabled={disableCommentButton}
+              disabled={addedVotes > 0}
+              className="text-success mr-1 disabled:text-gray-300"
             >
-              Post Comment
-            </Button>
-            {commentErr ? (
-              <Typography className="my-3 font-bold text-warning">
-                {commentErr}
-              </Typography>
+              <ThumbUp />
+            </IconButton>
+            <IconButton
+              onClick={() => {
+                handleVote(-1);
+              }}
+              disabled={Math.sign(addedVotes) === -1}
+              className="text-danger mr-2 disabled:text-gray-300"
+            >
+              <ThumbDown />
+            </IconButton>
+            <Typography
+              className="text-gray-700 dark:text-light-accent"
+              variant="p"
+            >
+              {singleReview.votes + addedVotes} Votes
+            </Typography>
+            {voteErr ? (
+              <Typography className="ml-3 font-bold">{voteErr}</Typography>
             ) : null}
+          </div>
+        </div>
+        <Container className="flex flex-col text-center">
+          {singleReview.comment_count === 0 ? (
+            <Container className="flex flex-col max-w-lg">
+              <Typography className="text-body-color-light font-bold my-2 dark:text-white">
+                No Comments... Yet!
+              </Typography>
+              <TextField
+                className="mb-1 dark:bg-light-accent rounded-lg"
+                multiline
+                rows={4}
+                value={userComment}
+                label="Add Comment"
+                onChange={(event) => {
+                  setUserComment(event.target.value);
+                }}
+              />
+              <Button
+                variant="contained"
+                className="bg-light-accent disabled:text-gray-300 m-2 h-12"
+                onClick={handleCommentSubmit}
+                disabled={disableCommentButton}
+              >
+                Post Comment
+              </Button>
+            </Container>
+          ) : (
+            <Button
+              onClick={handleCommentClick}
+              variant="text"
+              className="inset-x-0 bottom-0 text-dark-accent"
+            >
+              <Comment className="text-primary dark:text-dark-accent my-2" />{" "}
+              View Comments ({singleReview.comment_count})
+            </Button>
+          )}
+        </Container>
+        <Container>
+          {commentLoading === "Not Clicked" ? null : commentLoading === true ? (
+            <Typography className="dark:text-white">
+              Loading Comments...
+            </Typography>
+          ) : (
+            <Container className="flex flex-col max-w-lg">
+              <TextField
+                className="mb-1 dark:bg-light-accent rounded-lg"
+                multiline
+                rows={4}
+                value={userComment}
+                label="Add Comment"
+                onChange={(event) => {
+                  setUserComment(event.target.value);
+                }}
+              />
+              <Button
+                variant="contained"
+                className="bg-light-accent disabled:text-gray-300 m-2 h-12 my-3"
+                onClick={handleCommentSubmit}
+                disabled={disableCommentButton}
+              >
+                Post Comment
+              </Button>
+              {commentErr ? (
+                <Typography className="my-3 font-bold text-warning">
+                  {commentErr}
+                </Typography>
+              ) : null}
+            </Container>
+          )}
+          <Container className="overflow-y-auto max-h-96">
+            {comments.map((comment) => (
+              <CommentCard
+                key={comment.comment_id}
+                body={comment.body}
+                votes={comment.votes}
+                author={comment.author}
+                created_at={comment.created_at}
+                id={comment.comment_id}
+              />
+            ))}
           </Container>
-        )}
-        <Container className="overflow-y-auto max-h-96">
-          {comments.map((comment) => (
-            <CommentCard
-              key={comment.comment_id}
-              body={comment.body}
-              votes={comment.votes}
-              author={comment.author}
-              created_at={comment.created_at}
-              id={comment.comment_id}
-            />
-          ))}
         </Container>
       </Container>
-    </Container>
+    </div>
   );
 };
 

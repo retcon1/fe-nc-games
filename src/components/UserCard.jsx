@@ -2,12 +2,12 @@ import { Avatar, Button, Card, CardContent, Typography } from "@mui/material";
 import React, { useContext } from "react";
 import UserContext from "./UserContext";
 
-const UserCard = ({ username, avatar_url }) => {
+const UserCard = ({ username, avatar_url, name }) => {
   const { setCurrentUser } = useContext(UserContext);
 
   const changeUser = (event, username, avatar_url) => {
     event.preventDefault();
-    const newUser = { username, avatar_url };
+    const newUser = { username, avatar_url, name };
     setCurrentUser(newUser);
   };
 

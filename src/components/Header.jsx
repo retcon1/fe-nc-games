@@ -6,11 +6,6 @@ import { IconButton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import CasinoIcon from "@mui/icons-material/Casino";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
@@ -46,6 +41,11 @@ function Header() {
   const goToReviews = (event) => {
     event.preventDefault();
     navigate("/reviews");
+  };
+
+  const postReview = (event) => {
+    event.preventDefault();
+    navigate("/post-review");
   };
 
   const goToUsers = (event) => {
@@ -117,6 +117,11 @@ function Header() {
                   All Reviews
                 </Typography>
               </MenuItem>
+              <MenuItem key={"postReview"} onClick={handleCloseNavMenu}>
+                <Typography textAlign="center" onClick={postReview}>
+                  Create Review
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Typography
@@ -148,6 +153,13 @@ function Header() {
               sx={{ my: 2, color: "white", display: "block" }}
             >
               All Reviews
+            </Button>
+            <Button
+              key={"postReview"}
+              onClick={postReview}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Create Review
             </Button>
             <ThemeButton theme={theme} setTheme={setTheme} />
           </Box>
