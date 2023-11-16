@@ -9,17 +9,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import UserContext from "./UserContext";
 import { fetchCategories, postReview } from "../utils/api";
-
-const testReview = {
-  title: "Culture a Love of Agriculture With Agricola",
-  designer: "Uwe Rosenberg",
-  owner: "tickle122",
-  review_img_url:
-    "https://images.pexels.com/photos/974314/pexels-photo-974314.jpeg?w=700&h=700",
-  review_body:
-    "You could sum up Agricola with the simple phrase 'Farmyard Fun' but the mechanics and game play add so much more than that. You'll find yourself torn between breeding pigs, or sowing crops. Its joyeous and rewarding and it makes you think of time spent outside, which is much harder to do these days!",
-  category: "strategy",
-};
+import { validateImageURL } from "../utils/validateImageURL";
 
 const PostReview = () => {
   const { currentUser } = useContext(UserContext);
@@ -32,6 +22,9 @@ const PostReview = () => {
     designer: currentUser.name,
     owner: currentUser.username,
   });
+  const [tooShort, setTooShort] = useState(false);
+  const [invalidImage, setInvalidImage] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     fetchCategories().then((data) => {
@@ -46,12 +39,34 @@ const PostReview = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    postReview(formData)
-      .then((data) => {
-        console.log(data);
+    setInvalidImage(false);
+    setTooShort(false);
+    if (formData.review_body.length < 280) {
+      setTooShort(true);
+    }
+    validateImageURL(formData.review_img_url)
+      .then(() => {
+        postReview(formData)
+          .then((data) => {
+            console.log(data);
+            setSubmitted(true);
+          })
+          .catch((err) => console.error(err));
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        setInvalidImage(true);
+      });
   };
+
+  if (submitted) {
+    return (
+      <div className="bg-light dark:bg-dark text-center max-h-screen-2xl">
+        <Typography className="dark:text-white font-bold text-xl mt-20 mb-5">
+          Thanks for your review, it's live now!
+        </Typography>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-light dark:bg-dark text-center max-h-screen-2xl">
@@ -59,7 +74,9 @@ const PostReview = () => {
         Write Your Own Review!
       </Typography>
       <form onSubmit={handleSubmit} className="flex flex-col items-center">
-        <Typography className="dark:text-white font-bold">Title</Typography>
+        <Typography className="dark:text-white font-bold underline">
+          Title
+        </Typography>
         <TextField
           required
           name="title"
@@ -67,7 +84,9 @@ const PostReview = () => {
           onChange={handleChange}
           className="bg-light dark:bg-light-accent rounded-lg w-1/2 m-5 min-w-fit"
         />
-        <Typography className="dark:text-white font-bold">Review</Typography>
+        <Typography className="dark:text-white font-bold underline">
+          Review
+        </Typography>
         <TextField
           required
           multiline
@@ -77,7 +96,13 @@ const PostReview = () => {
           onChange={handleChange}
           className="bg-light dark:bg-light-accent rounded-lg w-4/5 m-5"
         />
-        <Typography className="dark:text-white font-bold">
+        {tooShort ? (
+          <Typography className="text-red-700 dark:text-red-400 font-bold mb-3">
+            Please make your review over 280 characters in length, it's not a
+            tweet!
+          </Typography>
+        ) : null}
+        <Typography className="dark:text-white font-bold underline">
           Review Image URL
         </Typography>
         <TextField
@@ -89,7 +114,12 @@ const PostReview = () => {
           onChange={handleChange}
           className="bg-light dark:bg-light-accent rounded-lg m-5 min-w-fit w-1/3 "
         />
-        <Typography className="dark:text-white font-bold">
+        {invalidImage ? (
+          <Typography className="text-red-700 dark:text-red-400 font-bold mb-3">
+            Please Enter a Valid URL
+          </Typography>
+        ) : null}
+        <Typography className="dark:text-white font-bold underline">
           What category is this game in?
         </Typography>
         <FormControl
@@ -115,7 +145,7 @@ const PostReview = () => {
           </Typography>
         ) : (
           <>
-            <Typography className="dark:text-white">
+            <Typography className="dark:text-white font-bold">
               Author: {currentUser.name}
             </Typography>
             <Button
