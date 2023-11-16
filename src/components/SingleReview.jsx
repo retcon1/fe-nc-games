@@ -202,6 +202,7 @@ const SingleReview = () => {
                 rows={4}
                 value={userComment}
                 label="Add Comment"
+                placeholder="Make sure you're signed in!"
                 onChange={(event) => {
                   setUserComment(event.target.value);
                 }}
@@ -239,6 +240,7 @@ const SingleReview = () => {
                 rows={4}
                 value={userComment}
                 label="Add Comment"
+                placeholder="Make sure you're signed in!"
                 onChange={(event) => {
                   setUserComment(event.target.value);
                 }}
