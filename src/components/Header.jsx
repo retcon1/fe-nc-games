@@ -1,24 +1,26 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import { IconButton } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {useState, useContext} from "react";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Avatar,
+  Button,
+  Toolbar,
+  Tooltip,
+  MenuItem,
+  Menu,
+  Container,
+  Typography,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import CasinoIcon from "@mui/icons-material/Casino";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 
 function Header() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { currentUser } = React.useContext(UserContext);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const { currentUser } = useContext(UserContext);
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };

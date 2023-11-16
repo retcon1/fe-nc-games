@@ -1,12 +1,10 @@
 import {
-  Box as form,
   Button,
   FormControl,
   TextField,
   Typography,
   Select,
   MenuItem,
-  InputLabel,
 } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "./UserContext";
@@ -56,22 +54,20 @@ const PostReview = () => {
   };
 
   return (
-    <>
-      <Typography className="dark:text-white font-bold">
+    <div className="bg-light dark:bg-dark text-center max-h-screen-2xl">
+      <Typography className="dark:text-white font-bold text-lg mt-10 mb-5">
         Write Your Own Review!
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <Typography className="dark:text-white">Title</Typography>
+      <form onSubmit={handleSubmit} className="flex flex-col items-center">
+        <Typography className="dark:text-white font-bold">Title</Typography>
         <TextField
           required
           name="title"
-          multiline
-          maxRows={2}
           value={formData.title}
           onChange={handleChange}
-          className="bg-light dark:bg-light-accent rounded-lg"
+          className="bg-light dark:bg-light-accent rounded-lg w-1/2 m-5 min-w-fit"
         />
-        <Typography className="dark:text-white">Review</Typography>
+        <Typography className="dark:text-white font-bold">Review</Typography>
         <TextField
           required
           multiline
@@ -79,9 +75,11 @@ const PostReview = () => {
           name="review_body"
           value={formData.review_body}
           onChange={handleChange}
-          className="bg-light dark:bg-light-accent rounded-lg"
+          className="bg-light dark:bg-light-accent rounded-lg w-4/5 m-5"
         />
-        <Typography className="dark:text-white">Review Image URL</Typography>
+        <Typography className="dark:text-white font-bold">
+          Review Image URL
+        </Typography>
         <TextField
           required
           name="review_img_url"
@@ -89,20 +87,21 @@ const PostReview = () => {
           maxRows={2}
           value={formData.review_img_url}
           onChange={handleChange}
-          className="bg-light dark:bg-light-accent rounded-lg"
+          className="bg-light dark:bg-light-accent rounded-lg m-5 min-w-fit w-1/3 "
         />
-        <Typography className="dark:text-white">
+        <Typography className="dark:text-white font-bold">
           What category is this game in?
         </Typography>
-        <FormControl fullWidth required>
-          <InputLabel>Category</InputLabel>
+        <FormControl
+          fullWidth
+          required
+          className="bg-light dark:bg-light-accent rounded-lg m-5 min-w-fit max-w-xs"
+        >
           <Select
             value={formData.category}
             name="category"
             onChange={handleChange}
-            className="bg-light dark:bg-light-accent rounded-lg"
           >
-            <MenuItem aria-label="None" value="" />
             {categories.map((cat) => (
               <MenuItem key={categories.indexOf(cat)} value={cat.slug}>
                 {cat.slug}
@@ -110,12 +109,26 @@ const PostReview = () => {
             ))}
           </Select>
         </FormControl>
-        <Typography className="dark:text-white">
-          Author: {currentUser.name}
-        </Typography>
-        <Button type="submit">Post Your Review!</Button>
+        {currentUser.name === "Guest" ? (
+          <Typography className="dark:text-red-400 font-bold">
+            Please sign in as a user before posting a review!
+          </Typography>
+        ) : (
+          <>
+            <Typography className="dark:text-white">
+              Author: {currentUser.name}
+            </Typography>
+            <Button
+              type="submit"
+              variant="contained"
+              className="bg-dark-accent disabled:text-gray-300 m-2 h-12 my-3"
+            >
+              Post Your Review!
+            </Button>
+          </>
+        )}
       </form>
-    </>
+    </div>
   );
 };
 

@@ -64,7 +64,6 @@ export const updateCommentVotes = async (id, voteNum) => {
 };
 
 export const postReview = async (review) => {
-  console.log(JSON.stringify(review));
   const response = await gameAPI.post("/reviews", review);
-  return response.data;
+  return response.data.postedReview;
 };
