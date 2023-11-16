@@ -128,13 +128,6 @@ const SingleReview = () => {
     <div className="max-w-full bg-light dark:bg-dark">
       <Container className="flex flex-wrap justify-center">
         <Box>
-        <Typography
-          className="mt-5 flex justify-center dark:text-white"
-          variant="h4"
-        >
-          {singleReview.title}
-        </Typography>
-        <div className="flex flex-row items-center justify-center my-3">
           <Typography
             className="mt-5 flex justify-center dark:text-white"
             variant="h4"
@@ -147,58 +140,6 @@ const SingleReview = () => {
               variant="body3"
             >
               {singleReview.designer}
-          <Typography
-            className="text-light-accent dark:text-dark-accent ml-4"
-            variant="body1"
-          >
-            {new Date(singleReview.created_at).toLocaleString()}
-          </Typography>
-        </div>
-        <img
-          src={singleReview.review_img_url}
-          alt={`Review for ${singleReview.title}`}
-          className="max-w-screen max-h-lg mx-auto"
-        />
-        <Typography className="my-5 max-w-1024px text-body-color-light dark:text-white font-serif text-lg">
-          {singleReview.review_body}
-        </Typography>
-      </Box>
-      <div className="flex justify-between w-full">
-        <div className="flex items-center">
-          <IconButton
-            onClick={(event) => {
-              handleVote({ type: "up", num: 1 });
-            }}
-            className={`mr-1 ${voteBtns.up ? "text-gray-300" : "text-success"}`}
-          >
-            <ThumbUp />
-          </IconButton>
-          <IconButton
-            onClick={(event) => {
-              handleVote({ type: "down", num: -1 });
-            }}
-            className={`mr-1 ${
-              voteBtns.down ? "text-gray-300" : "text-danger"
-            }`}
-          >
-            <ThumbDown />
-          </IconButton>
-          <Typography
-            className="text-gray-700 dark:text-light-accent"
-            variant="p"
-          >
-            {singleReview.votes + addedVotes} Votes
-          </Typography>
-          {voteErr ? (
-            <Typography className="ml-3 font-bold">{voteErr}</Typography>
-          ) : null}
-        </div>
-      </div>
-      <Container className="flex flex-col text-center">
-        {singleReview.comment_count === 0 ? (
-          <Container className="flex flex-col max-w-lg">
-            <Typography className="text-body-color-light font-bold my-2 dark:text-white">
-              No Comments... Yet!
             </Typography>
             <Typography
               className="text-light-accent dark:text-dark-accent ml-4"
@@ -210,7 +151,7 @@ const SingleReview = () => {
           <img
             src={singleReview.review_img_url}
             alt={`Review for ${singleReview.title}`}
-            class="max-w-screen max-h-[32rem] mx-auto"
+            className="max-w-screen max-h-[32rem] mx-auto"
           />
           <Typography className="my-5 max-w-fit flex-wrap text-body-color-light dark:text-white font-serif text-lg">
             {singleReview.review_body}
@@ -220,19 +161,21 @@ const SingleReview = () => {
           <div className="flex items-center">
             <IconButton
               onClick={() => {
-                handleVote(1);
+                handleVote({ type: "up", num: 1 });
               }}
-              disabled={addedVotes > 0}
-              className="text-success mr-1 disabled:text-gray-300"
+              className={`mr-1 ${
+                voteBtns.up ? "text-gray-300" : "text-success"
+              }`}
             >
               <ThumbUp />
             </IconButton>
             <IconButton
               onClick={() => {
-                handleVote(-1);
+                handleVote({ type: "down", num: -1 });
               }}
-              disabled={Math.sign(addedVotes) === -1}
-              className="text-danger mr-2 disabled:text-gray-300"
+              className={`mr-1 ${
+                voteBtns.down ? "text-gray-300" : "text-danger"
+              }`}
             >
               <ThumbDown />
             </IconButton>

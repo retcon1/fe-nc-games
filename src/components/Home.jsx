@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 import ReviewsList from "./ReviewsList";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Home = ({ reviews, setReviews }) => {

@@ -26,7 +26,6 @@ const CategoryBox = ({ setCategory }) => {
           defaultValue=""
           id="grouped-native-select"
           label="Grouping"
-          className="dark:text-white"
           onChange={(event) => {
             setCategory(event.target.value);
           }}

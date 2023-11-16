@@ -2,7 +2,14 @@ import React, { useEffect, useContext, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { IconButton } from "@mui/material";
+import {
+  IconButton,
+  Container,
+  MenuItem,
+  Button,
+  Tooltip,
+  Avatar,
+} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -181,7 +188,7 @@ function Header() {
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
-              id="menu-appbar"
+              id="menu-user"
               anchorEl={anchorElUser}
               anchorOrigin={{
                 vertical: "top",
