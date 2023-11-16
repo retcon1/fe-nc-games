@@ -9,6 +9,7 @@ import { fetchReviews } from "./utils/api";
 import Users from "./components/Users";
 import UserContext from "./components/UserContext";
 import PostReview from "./components/PostReview";
+
 function App() {
   const [reviews, setReviews] = useState([]);
   const [totalReviews, setTotalReviews] = useState(null);
@@ -16,8 +17,9 @@ function App() {
     username: "guest",
     name: "Guest",
     avatar_url:
-      "https://www.croptecshow.com/wp-content/uploads/2017/04/guest-avatar-250x250px.png?x17690",
+      "https://img.favpng.com/12/14/4/avatar-user-medicine-surgery-patient-png-favpng-5GPmZyxNjmTZRJtRW4aT9xw0h_t.jpg",
   });
+
   useEffect(() => {
     fetchReviews().then((reviews) => {
       setTotalReviews(reviews[0].total_count);
@@ -25,7 +27,7 @@ function App() {
   }, []);
 
   return (
-    <div id="root" className="bg-light dark:bg-dark h-screen">
+    <div id="root" className="bg-light dark:bg-dark min-h-screen">
       <UserContext.Provider value={{ currentUser, setCurrentUser }}>
         <Header />
         <Routes>

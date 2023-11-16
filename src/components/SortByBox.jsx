@@ -13,6 +13,7 @@ const SortByBox = ({ setSortBy }) => {
           defaultValue=""
           id="grouped-native-select"
           label="Grouping"
+          className="dark:text-white"
           onChange={(event) => {
             setSortBy(event.target.value);
           }}

@@ -2,7 +2,7 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts}"],
   important: "#root",
-  darkMode: "media",
+  darkMode: "class",
   theme: {
     extend: {
       backgroundColor: {
@@ -20,6 +20,7 @@ module.exports = {
         warning: "#ED8B07",
         danger: "#F44336",
       },
+      darkMode: "media",
     },
   },
   plugins: [],

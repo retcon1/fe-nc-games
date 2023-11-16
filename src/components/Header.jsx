@@ -1,26 +1,27 @@
-import {useState, useContext} from "react";
-import {
-  AppBar,
-  Box,
-  IconButton,
-  Avatar,
-  Button,
-  Toolbar,
-  Tooltip,
-  MenuItem,
-  Menu,
-  Container,
-  Typography,
-} from "@mui/material";
+import React, { useEffect, useContext, useState } from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import { IconButton } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import CasinoIcon from "@mui/icons-material/Casino";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
+import ThemeButton from "../utils/ThemeSwitch";
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const { currentUser } = useContext(UserContext);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.className = theme;
+  }, [theme]);
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -61,7 +62,7 @@ function Header() {
   return (
     <AppBar position="sticky" className="bg-primary mb-2 dark:bg-dark-accent">
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
+        <Toolbar>
           <CasinoIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -160,6 +161,7 @@ function Header() {
             >
               Create Review
             </Button>
+            <ThemeButton theme={theme} setTheme={setTheme} />
           </Box>
           <Typography variant="p" sx={{ mr: 1 }}>
             Signed in as {currentUser.username}
@@ -195,6 +197,9 @@ function Header() {
             >
               <MenuItem key={"changeUser"} onClick={goToUsers}>
                 <Typography textAlign="center">Change User</Typography>
+              </MenuItem>
+              <MenuItem key={"toggleTheme"} onClick={handleCloseNavMenu}>
+                <ThemeButton theme={theme} setTheme={setTheme} />
               </MenuItem>
             </Menu>
           </Box>
